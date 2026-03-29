@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naqel SMS Dashboard &#8212; Mar 1 – Mar 29, 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2236;
+    --border: #1e2d45;
+    --accent: #00d4ff;
+    --accent-wa: #a78bfa;
+    --accent-combined: #10b981;
+    --green: #10b981;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --font: 'Calibre', 'Calibri', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(0,212,255,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(124,58,237,0.05) 0%, transparent 60%);
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(17,24,39,0.85);
+    backdrop-filter: blur(12px);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-dot {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, #00d4ff, #7c3aed);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff;
+    font-family: var(--font);
+  }
+  .logo-text { font-family: var(--font); font-weight: 700; font-size: 17px; letter-spacing: -0.3px; }
+  .logo-sub { font-size: 11px; color: var(--muted); font-family: var(--font); margin-top: 2px; }
+  .header-right { display: flex; align-items: center; gap: 20px; }
+  .header-meta { text-align: right; }
+  .header-meta .period { font-family: var(--font); font-size: 12px; color: var(--accent); }
+  .header-meta .updated { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .pulse { display: inline-block; width: 6px; height: 6px; background: var(--green); border-radius: 50%; margin-right: 4px; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+  /* Type toggle */
+  .type-toggle {
+    display: flex; background: rgba(30,45,69,0.6); border: 1px solid var(--border);
+    border-radius: 10px; padding: 3px; gap: 2px;
+  }
+  .type-btn {
+    padding: 7px 18px; border: none; border-radius: 7px;
+    font-family: var(--font); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.5px; cursor: pointer; transition: all 0.18s;
+    background: transparent; color: var(--muted);
+  }
+  .type-btn:hover { color: var(--text); }
+  .type-btn.active[data-type="sms"]      { background: var(--accent); color: #0a0e1a; font-weight: 600; }
+  .type-btn.active[data-type="wa"]       { background: var(--accent-wa); color: #0a0e1a; font-weight: 600; }
+  .type-btn.active[data-type="combined"] { background: var(--accent-combined); color: #0a0e1a; font-weight: 600; }
+
+  main { padding: 24px 32px; max-width: 1400px; margin: 0 auto; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 20px; }
+  .kpi-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 20px;
+    position: relative; overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .kpi-card:hover { transform: translateY(-2px); border-color: rgba(0,212,255,0.25); }
+  .kpi-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent-color, var(--accent));
+  }
+  .kpi-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.9px; font-family: var(--font); margin-bottom: 10px; }
+  .kpi-value { font-family: var(--font); font-size: 30px; font-weight: 700; line-height: 1; }
+  .kpi-value span { font-size: 13px; font-weight: 400; color: var(--muted); font-family: var(--font); }
+  .kpi-sub { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  .kpi-sub b { color: var(--accent-color, var(--accent)); }
+
+  .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 18px; margin-bottom: 18px; }
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
+  .chart-title { font-family: var(--font); font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .chart-subtitle { font-size: 10px; color: var(--muted); margin-bottom: 16px; font-family: var(--font); letter-spacing: 0.4px; }
+  .chart-wrap { position: relative; height: 270px; }
+
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 18px; }
+  .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    font-family: var(--font); font-size: 10px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.7px;
+    padding: 0 8px 10px; text-align: left;
+  }
+  thead th:last-child { text-align: right; }
+  tbody tr { border-top: 1px solid var(--border); transition: background 0.12s; }
+  tbody tr:hover { background: var(--surface2); }
+  tbody td { padding: 9px 8px; font-size: 12.5px; }
+  td.rank { color: var(--muted); font-family: var(--font); font-size: 10px; width: 22px; }
+  td.name { color: var(--text); font-weight: 500; }
+  td.num  { text-align: right; font-family: var(--font); }
+  td.bar-cell { width: 80px; }
+  .mini-bar { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #00d4ff, #7c3aed); }
+  .day-num { color: var(--green); font-family: var(--font); }
+  .badge { display: inline-block; padding: 2px 7px; border-radius: 4px; font-family: var(--font); font-size: 10px; font-weight: 500; }
+  .badge-top  { background: rgba(0,212,255,0.12); color: #00d4ff; }
+  .badge-low  { background: rgba(100,116,139,0.15); color: var(--muted); }
+  .badge-norm { background: rgba(16,185,129,0.08); color: var(--green); }
+
+  footer { text-align: center; padding: 18px 32px; font-family: var(--font); font-size: 10px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 4px; }
+
+  @media (max-width: 900px) {
+    .kpi-grid { grid-template-columns: repeat(2,1fr); }
+    .charts-grid, .bottom-grid { grid-template-columns: 1fr; }
+    .header-right { flex-direction: column; align-items: flex-end; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-dot">N</div>
+    <div>
+      <div class="logo-text">Naqel Express</div>
+      <div class="logo-sub">SMS Analytics Dashboard</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="type-toggle">
+      <button class="type-btn active" data-type="sms" onclick="switchType('sms')">SMS</button>
+      <button class="type-btn" data-type="wa" onclick="switchType('wa')">WhatsApp</button>
+      <button class="type-btn" data-type="combined" onclick="switchType('combined')">Combined</button>
+    </div>
+    <div class="header-meta">
+      <div class="period">Mar 1 – Mar 29, 2026</div>
+      <div class="updated"><span class="pulse"></span>Last updated: Mar 29, 2026</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="kpi-grid">
+    <div class="kpi-card" style="--accent-color:#00d4ff">
+      <div class="kpi-label" id="kpi-channel-label">Total SMS Sent</div>
+      <div class="kpi-value" id="kpi-channel-value">4.28<span>M</span></div>
+      <div class="kpi-sub" id="kpi-channel-sub">Over <b>29 days</b> &middot; 32 types</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:#ff6b35">
+      <div class="kpi-label">Peak Day</div>
+      <div class="kpi-value">364<span>K</span></div>
+      <div class="kpi-sub">On <b>Mar 11</b> &#8212; highest volume</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:#10b981">
+      <div class="kpi-label" id="kpi-top-label">Top SMS Type</div>
+      <div class="kpi-value" id="kpi-top-value">1.09<span>M</span></div>
+      <div class="kpi-sub" id="kpi-top-sub"><b>OFD Prepaid SMS</b> &#8212; 25.4% share</div>
+    </div>
+    <div class="kpi-card" style="--accent-color:#a78bfa">
+      <div class="kpi-label" id="kpi-other-label">WhatsApp Total</div>
+      <div class="kpi-value" id="kpi-other-value">2.32<span>M</span></div>
+      <div class="kpi-sub">Daily avg <b>228K</b> combined</div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-title">Daily Volume &#8212; Top 8 Types</div>
+      <div class="chart-subtitle" id="trendSubtitle">SMS &middot; STACKED AREA &middot; Mar 1 – Mar 29, 2026</div>
+      <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Message Type Distribution</div>
+      <div class="chart-subtitle" id="donutSubtitle">SMS &middot; ALL 32 TYPES</div>
+      <div class="chart-wrap"><canvas id="donutChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="bottom-grid">
+    <div class="table-card">
+      <div class="chart-title">Daily Volume Summary</div>
+      <div class="chart-subtitle" style="margin-bottom:12px">TOTAL MESSAGES BY DATE</div>
+      <table>
+        <thead><tr><th>#</th><th>Date</th><th>Total</th><th style="text-align:right">Status</th></tr></thead>
+        <tbody id="dayTableBody"></tbody>
+      </table>
+    </div>
+    <div class="table-card">
+      <div class="chart-title">Type Leaderboard</div>
+      <div class="chart-subtitle" id="leaderboard-subtitle" style="margin-bottom:12px">TOP 12 BY SMS VOLUME</div>
+      <table>
+        <thead><tr><th>#</th><th>Type</th><th>Volume</th><th style="text-align:right">Bar</th></tr></thead>
+        <tbody id="typeTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<footer>Naqel Express &middot; Digital Engineering &amp; Platform Modernization &middot; Mar 1 – Mar 29, 2026 &middot; Generated 2026-03-29 21:10:26</footer>
+
+<script>
+const TREND_LABELS      = ["Mar 1","Mar 2","Mar 3","Mar 4","Mar 5","Mar 6","Mar 7","Mar 8","Mar 9","Mar 10","Mar 11","Mar 12","Mar 13","Mar 14","Mar 15","Mar 16","Mar 17","Mar 18","Mar 19","Mar 20","Mar 21","Mar 22","Mar 23","Mar 24","Mar 25","Mar 26","Mar 27","Mar 28","Mar 29"];
+const SMS_SERIES        = [{"name":"OFD Prepaid SMS","data":[47225,47744,53183,52648,57271,51112,49165,58986,57810,57286,56952,62460,52680,53012,60331,53369,43355,31317,22492,339,3,25145,24348,19534,15535,8258,7188,6513,11557]},{"name":"OFD COD SMS","data":[20184,20248,20899,19683,20078,17265,19432,20793,22091,25392,25229,24500,20336,22208,21379,23066,24389,24545,23975,72,0,17946,25783,26992,26634,26015,19791,19339,18164]},{"name":"Pickup SMS","data":[35749,40859,26721,41227,38719,31796,45955,40369,48322,36263,42913,36891,32387,41802,25468,21600,20005,16821,8147,1477,7047,12952,12774,15041,18884,18555,12828,20600,21651]},{"name":"Data Registered SMS","data":[17051,19835,17886,16942,16017,12547,18267,16140,15334,25868,14694,14210,10284,14515,9996,8490,6655,5477,4128,1692,2785,3789,4544,6596,10956,10612,7997,16416,15182]},{"name":"Out For Pickup SMS","data":[23890,23055,20634,18223,15467,12585,12927,11708,12079,11553,10425,10107,9117,10256,11469,12007,11664,11877,10579,0,0,12981,13478,13854,13229,10218,8664,9333,9951]},{"name":"No Answer","data":[5829,5949,5487,5587,5722,5588,5614,5919,6531,6844,6566,6889,6349,6948,7200,6899,2283,7240,8168,324,0,5054,7787,8462,8048,8167,6250,6281,4772]},{"name":"QualityDepartmentMessages","data":[612,217,221,14440,2204,0,0,336,2821,60952,81108,65072,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"Future Delivery","data":[3967,3867,4186,3828,4178,3674,4072,4397,4507,4924,4763,5528,4632,4598,4891,4621,1807,3847,3651,391,0,3269,5248,5287,5007,4068,3116,3001,2471]}];
+const WA_SERIES         = [{"name":"OFD Prepaid SMS","data":[28616,30732,32402,33524,33604,31237,36476,36894,37425,38545,39309,52376,38788,41960,45231,45368,37883,31867,31318,13,0,34848,30596,26201,21194,19127,17527,18016,21862]},{"name":"OFD COD SMS","data":[19849,19628,19855,18606,19066,16452,19130,20508,21757,24546,24169,23643,19458,21875,22758,22456,23677,23522,23389,1,0,17667,25478,26540,26293,25276,19679,19337,17711]},{"name":"Pickup SMS","data":[3922,4442,2611,4369,4853,5301,6769,6795,7829,4438,3800,3476,2968,2968,2119,2108,873,728,389,6,253,167,855,3405,2714,2976,2143,3266,3234]},{"name":"Data Registered SMS","data":[16942,19741,16974,16828,15567,12485,17911,16063,15248,25460,14636,13980,10111,14473,9931,8352,6542,5424,3975,1542,2694,3741,4491,6420,4140,0,0,0,0]},{"name":"Out For Pickup SMS","data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"No Answer","data":[5683,5823,5335,5460,5599,5486,5528,5836,6455,6769,6494,6802,6284,6872,7117,6838,2207,7181,8111,319,0,5001,7707,8373,7983,8068,6130,6159,4689]},{"name":"QualityDepartmentMessages","data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"Future Delivery","data":[3967,3867,4186,3828,4177,3675,4072,4396,4508,4924,4763,5528,4632,4598,4890,4621,1807,3847,3651,391,0,3269,5248,5287,5007,4068,3116,3001,2471]}];
+const COMBINED_SERIES   = [{"name":"OFD Prepaid SMS","data":[75841,78476,85585,86172,90875,82349,85641,95880,95235,95831,96261,114836,91468,94972,105562,98737,81238,63184,53810,352,3,59993,54944,45735,36729,27385,24715,24529,33419]},{"name":"OFD COD SMS","data":[40033,39876,40754,38289,39144,33717,38562,41301,43848,49938,49398,48143,39794,44083,44137,45522,48066,48067,47364,73,0,35613,51261,53532,52927,51291,39470,38676,35875]},{"name":"Pickup SMS","data":[39671,45301,29332,45596,43572,37097,52724,47164,56151,40701,46713,40367,35355,44770,27587,23708,20878,17549,8536,1483,7300,13119,13629,18446,21598,21531,14971,23866,24885]},{"name":"Data Registered SMS","data":[33993,39576,34860,33770,31584,25032,36178,32203,30582,51328,29330,28190,20395,28988,19927,16842,13197,10901,8103,3234,5479,7530,9035,13016,15096,10612,7997,16416,15182]},{"name":"Out For Pickup SMS","data":[23890,23055,20634,18223,15467,12585,12927,11708,12079,11553,10425,10107,9117,10256,11469,12007,11664,11877,10579,0,0,12981,13478,13854,13229,10218,8664,9333,9951]},{"name":"No Answer","data":[11512,11772,10822,11047,11321,11074,11142,11755,12986,13613,13060,13691,12633,13820,14317,13737,4490,14421,16279,643,0,10055,15494,16835,16031,16235,12380,12440,9461]},{"name":"QualityDepartmentMessages","data":[612,217,221,14440,2204,0,0,336,2821,60952,81108,65072,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"Future Delivery","data":[7934,7734,8372,7656,8355,7349,8144,8793,9015,9848,9526,11056,9264,9196,9781,9242,3614,7694,7302,782,0,6538,10496,10574,10014,8136,6232,6002,4942]}];
+const DONUT_LABELS      = ["OFD Prepaid SMS","OFD COD SMS","Pickup SMS","Data Registered SMS","Out For Pickup SMS","No Answer","QualityDepartmentMessages","Future Delivery","ASR Booking Received","Refuse Delivery","Others"];
+const SMS_DONUT         = [1086818,596428,773823,344905,351330,172757,227983,111796,223146,94215,301018];
+const WA_DONUT          = [892939,582326,89777,283671,0,170309,0,111795,0,94215,91673];
+const COMBINED_DONUT    = [1979757,1178754,863600,628576,351330,343066,227983,223591,223146,188430,392691];
+const TOTAL_SMS         = 4284219;
+const TOTAL_WA          = 2316705;
+const TOTAL_COMBINED    = 6600924;
+const SMS_TYPES         = [{"name":"OFD Prepaid SMS","val":1086818},{"name":"Pickup SMS","val":773823},{"name":"OFD COD SMS","val":596428},{"name":"Out For Pickup SMS","val":351330},{"name":"Data Registered SMS","val":344905},{"name":"QualityDepartmentMessages","val":227983},{"name":"ASR Booking Received","val":223146},{"name":"No Answer","val":172757},{"name":"Future Delivery","val":111796},{"name":"Refuse Delivery","val":94215},{"name":"IND SMS","val":59468},{"name":"CBULogin","val":45888}];
+const WA_TYPES          = [{"name":"OFD Prepaid SMS","val":892939},{"name":"OFD COD SMS","val":582326},{"name":"Data Registered SMS","val":283671},{"name":"No Answer","val":170309},{"name":"Future Delivery","val":111795},{"name":"Refuse Delivery","val":94215},{"name":"Pickup SMS","val":89777},{"name":"Mobile Closed","val":42313},{"name":"Not Home","val":27091},{"name":"Address change","val":21572},{"name":"Customer Collection","val":697},{"name":"ASR Booking Canceled","val":0}];
+const COMBINED_TYPES    = [{"name":"OFD Prepaid SMS","val":1979757},{"name":"OFD COD SMS","val":1178754},{"name":"Pickup SMS","val":863600},{"name":"Data Registered SMS","val":628576},{"name":"Out For Pickup SMS","val":351330},{"name":"No Answer","val":343066},{"name":"QualityDepartmentMessages","val":227983},{"name":"Future Delivery","val":223591},{"name":"ASR Booking Received","val":223146},{"name":"Refuse Delivery","val":188430},{"name":"Mobile Closed","val":84625},{"name":"IND SMS","val":59468}];
+const MAX_SMS_TYPE      = 1086818;
+const MAX_WA_TYPE       = 892939;
+const MAX_COMBINED_TYPE = 1979757;
+const COLORS            = ['#00d4ff','#ff6b35','#7c3aed','#10b981','#f59e0b','#ec4899','#3b82f6','#a3e635'];
+const DONUT_COLORS      = ['#00d4ff','#ff6b35','#7c3aed','#10b981','#f59e0b','#ec4899','#3b82f6','#a3e635','#f97316','#8b5cf6','#334155'];
+
+const SMS_KPI = {
+  channelLabel: 'TOTAL SMS SENT',
+  channelValue: '4.28<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  channelSub:   'Over <b>29 days</b> &middot; 32 types',
+  topLabel:     'TOP SMS TYPE',
+  topValue:     '1.09<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  topSub:       '<b>OFD Prepaid SMS</b> &#8212; 25.4% share',
+  otherLabel:   'WHATSAPP TOTAL',
+  otherValue:   '2.32<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+};
+const WA_KPI = {
+  channelLabel: 'TOTAL WHATSAPP SENT',
+  channelValue: '2.32<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  channelSub:   'Over <b>29 days</b> &middot; 32 types',
+  topLabel:     'TOP WHATSAPP TYPE',
+  topValue:     '893<span style="font-size:13px;font-weight:400;color:#64748b">K</span>',
+  topSub:       '<b>OFD Prepaid SMS</b> &#8212; 38.5% share',
+  otherLabel:   'SMS TOTAL',
+  otherValue:   '4.28<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+};
+const COMBINED_KPI = {
+  channelLabel: 'TOTAL SENT (SMS + WA)',
+  channelValue: '6.60<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  channelSub:   'Over <b>29 days</b> &middot; 32 types',
+  topLabel:     'TOP TYPE (COMBINED)',
+  topValue:     '1.98<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  topSub:       '<b>OFD Prepaid SMS</b> &#8212; 30.0% share',
+  otherLabel:   'DAILY AVG (COMBINED)',
+  otherValue:   '228<span style="font-size:13px;font-weight:400;color:#64748b">K</span>',
+};
+
+let currentTotal = TOTAL_SMS;
+
+function makeDatasets(series) {
+  return series.map((s, i) => ({
+    label: s.name, data: s.data,
+    borderColor: COLORS[i],
+    backgroundColor: COLORS[i] + '18',
+    fill: true, tension: 0.4,
+    borderWidth: 1.8, pointRadius: 3, pointHoverRadius: 5,
+    pointBackgroundColor: COLORS[i],
+  }));
+}
+
+const commonTooltip = {
+  backgroundColor: '#111827', borderColor: '#1e2d45', borderWidth: 1,
+  titleColor: '#e2e8f0', bodyColor: '#94a3b8',
+  titleFont: { family: 'Calibre, Calibri, sans-serif', size: 12 },
+  bodyFont:  { family: 'Calibre, Calibri, sans-serif', size: 11 },
+};
+
+const trendChart = new Chart(document.getElementById('trendChart').getContext('2d'), {
+  type: 'line',
+  data: { labels: TREND_LABELS, datasets: makeDatasets(SMS_SERIES) },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Calibre, Calibri, sans-serif', size: 9 }, boxWidth: 10, padding: 10 } },
+      tooltip: { ...commonTooltip, callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toLocaleString()}` } }
+    },
+    scales: {
+      x: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { family: 'Calibre, Calibri, sans-serif', size: 10 } } },
+      y: { grid: { color: '#1e2d45' }, ticks: { color: '#64748b', font: { family: 'Calibre, Calibri, sans-serif', size: 10 }, callback: v => (v/1000)+'K' } }
+    }
+  }
+});
+
+const donutChart = new Chart(document.getElementById('donutChart').getContext('2d'), {
+  type: 'doughnut',
+  data: {
+    labels: DONUT_LABELS,
+    datasets: [{ data: SMS_DONUT, backgroundColor: DONUT_COLORS, borderColor: '#0a0e1a', borderWidth: 2, hoverOffset: 8 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: {
+      legend: { position: 'right', labels: { color: '#94a3b8', font: { family: 'Calibre, Calibri, sans-serif', size: 9 }, boxWidth: 10, padding: 8 } },
+      tooltip: {
+        ...commonTooltip,
+        callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString()} (${((ctx.raw / currentTotal) * 100).toFixed(1)}%)` }
+      }
+    }
+  }
+});
+
+function buildLeaderboard(types, maxVal) {
+  const typeBody = document.getElementById('typeTableBody');
+  typeBody.innerHTML = '';
+  types.forEach((t, i) => {
+    const pct = Math.round(t.val / maxVal * 100);
+    typeBody.innerHTML += `<tr>
+      <td class="rank">${i+1}</td>
+      <td class="name" style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</td>
+      <td class="num">${t.val.toLocaleString()}</td>
+      <td class="bar-cell"><div class="mini-bar" style="width:${pct}%"></div></td>
+    </tr>`;
+  });
+}
+
+function switchType(type) {
+  const isSms      = type === 'sms';
+  const isWa       = type === 'wa';
+  const isCombined = type === 'combined';
+
+  // Update charts
+  const series = isSms ? SMS_SERIES : isWa ? WA_SERIES : COMBINED_SERIES;
+  trendChart.data.datasets = makeDatasets(series);
+  trendChart.update('active');
+
+  const donut = isSms ? SMS_DONUT : isWa ? WA_DONUT : COMBINED_DONUT;
+  donutChart.data.datasets[0].data = donut;
+  donutChart.update('active');
+
+  currentTotal = isSms ? TOTAL_SMS : isWa ? TOTAL_WA : TOTAL_COMBINED;
+
+  // Update chart subtitles
+  const label = isSms ? 'SMS' : isWa ? 'WHATSAPP' : 'COMBINED';
+  document.getElementById('trendSubtitle').textContent = label + ' \u00b7 STACKED AREA';
+  document.getElementById('donutSubtitle').textContent = label + ' \u00b7 ALL TYPES';
+
+  // Update KPI cards
+  const kpi = isSms ? SMS_KPI : isWa ? WA_KPI : COMBINED_KPI;
+  document.getElementById('kpi-channel-label').textContent = kpi.channelLabel;
+  document.getElementById('kpi-channel-value').innerHTML   = kpi.channelValue;
+  document.getElementById('kpi-channel-sub').innerHTML     = kpi.channelSub;
+  document.getElementById('kpi-top-label').textContent     = kpi.topLabel;
+  document.getElementById('kpi-top-value').innerHTML       = kpi.topValue;
+  document.getElementById('kpi-top-sub').innerHTML         = kpi.topSub;
+  document.getElementById('kpi-other-label').textContent   = kpi.otherLabel;
+  document.getElementById('kpi-other-value').innerHTML     = kpi.otherValue;
+
+  // Update leaderboard
+  const lbLabel = isSms ? 'TOP 12 BY SMS VOLUME' : isWa ? 'TOP 12 BY WHATSAPP VOLUME' : 'TOP 12 BY COMBINED VOLUME';
+  document.getElementById('leaderboard-subtitle').textContent = lbLabel;
+  const lbTypes = isSms ? SMS_TYPES : isWa ? WA_TYPES : COMBINED_TYPES;
+  const lbMax   = isSms ? MAX_SMS_TYPE : isWa ? MAX_WA_TYPE : MAX_COMBINED_TYPE;
+  buildLeaderboard(lbTypes, lbMax);
+
+  // Update toggle buttons
+  document.querySelectorAll('.type-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.type === type));
+}
+
+// Daily table
+const DAILY   = [{"date":"Mar 1","val":268213},{"date":"Mar 2","val":309711},{"date":"Mar 3","val":271814},{"date":"Mar 4","val":286040},{"date":"Mar 5","val":275895},{"date":"Mar 6","val":232084},{"date":"Mar 7","val":270161},{"date":"Mar 8","val":275959},{"date":"Mar 9","val":288905},{"date":"Mar 10","val":363419},{"date":"Mar 11","val":364360},{"date":"Mar 12","val":359375},{"date":"Mar 13","val":244887},{"date":"Mar 14","val":274821},{"date":"Mar 15","val":264028},{"date":"Mar 16","val":251605},{"date":"Mar 17","val":205073},{"date":"Mar 18","val":202619},{"date":"Mar 19","val":179403},{"date":"Mar 20","val":11084},{"date":"Mar 21","val":17728},{"date":"Mar 22","val":166704},{"date":"Mar 23","val":196279},{"date":"Mar 24","val":202708},{"date":"Mar 25","val":196049},{"date":"Mar 26","val":174912},{"date":"Mar 27","val":137759},{"date":"Mar 28","val":155438},{"date":"Mar 29","val":153891}];
+const MAX_DAY = 364360;
+const dayBody = document.getElementById('dayTableBody');
+DAILY.forEach((d, i) => {
+  const isPeak = d.val === MAX_DAY;
+  const isLow  = d.val < MAX_DAY * 0.15;
+  dayBody.innerHTML += `<tr>
+    <td class="rank">${i+1}</td>
+    <td class="name day-num">${d.date}</td>
+    <td class="num">${d.val.toLocaleString()}</td>
+    <td class="num"><span class="badge ${isPeak ? 'badge-top' : isLow ? 'badge-low' : 'badge-norm'}">${isPeak ? 'PEAK' : isLow ? 'LOW' : 'NORMAL'}</span></td>
+  </tr>`;
+});
+
+// Initial leaderboard render (SMS)
+buildLeaderboard(SMS_TYPES, MAX_SMS_TYPE);
+</script>
+</body>
+</html>
