@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Naqel SMS Dashboard &#8212; Mar 1 – Mar 30, 2026</title>
+<title>Naqel SMS Dashboard &#8212; Mar 1 – Mar 31, 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
@@ -145,8 +145,8 @@
       <button class="type-btn" data-type="combined" onclick="switchType('combined')">Combined</button>
     </div>
     <div class="header-meta">
-      <div class="period">Mar 1 – Mar 30, 2026</div>
-      <div class="updated"><span class="pulse"></span>Last updated: Mar 30, 2026</div>
+      <div class="period">Mar 1 – Mar 31, 2026</div>
+      <div class="updated"><span class="pulse"></span>Last updated: Mar 31, 2026</div>
     </div>
   </div>
 </header>
@@ -156,8 +156,8 @@
   <div class="kpi-grid">
     <div class="kpi-card" style="--accent-color:#00d4ff">
       <div class="kpi-label" id="kpi-channel-label">Total SMS Sent</div>
-      <div class="kpi-value" id="kpi-channel-value">4.37<span>M</span></div>
-      <div class="kpi-sub" id="kpi-channel-sub">Over <b>30 days</b> &middot; 32 types</div>
+      <div class="kpi-value" id="kpi-channel-value">4.46<span>M</span></div>
+      <div class="kpi-sub" id="kpi-channel-sub">Over <b>31 days</b> &middot; 32 types</div>
     </div>
     <div class="kpi-card" style="--accent-color:#ff6b35">
       <div class="kpi-label">Peak Day</div>
@@ -166,20 +166,20 @@
     </div>
     <div class="kpi-card" style="--accent-color:#10b981">
       <div class="kpi-label" id="kpi-top-label">Top SMS Type</div>
-      <div class="kpi-value" id="kpi-top-value">1.11<span>M</span></div>
-      <div class="kpi-sub" id="kpi-top-sub"><b>OFD Prepaid SMS</b> &#8212; 25.5% share</div>
+      <div class="kpi-value" id="kpi-top-value">1.12<span>M</span></div>
+      <div class="kpi-sub" id="kpi-top-sub"><b>OFD Prepaid SMS</b> &#8212; 25.0% share</div>
     </div>
     <div class="kpi-card" style="--accent-color:#a78bfa">
       <div class="kpi-label" id="kpi-other-label">WhatsApp Total</div>
-      <div class="kpi-value" id="kpi-other-value">2.36<span>M</span></div>
-      <div class="kpi-sub">Daily avg <b>224K</b> combined</div>
+      <div class="kpi-value" id="kpi-other-value">2.42<span>M</span></div>
+      <div class="kpi-sub">Daily avg <b>222K</b> combined</div>
     </div>
   </div>
 
   <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title">Daily Volume &#8212; Top 8 Types</div>
-      <div class="chart-subtitle" id="trendSubtitle">SMS &middot; STACKED AREA &middot; Mar 1 – Mar 30, 2026</div>
+      <div class="chart-subtitle" id="trendSubtitle">SMS &middot; STACKED AREA &middot; Mar 1 – Mar 31, 2026</div>
       <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
     </div>
     <div class="chart-card">
@@ -210,58 +210,58 @@
 
 </main>
 
-<footer>Naqel Express &middot; Digital Engineering &amp; Platform Modernization &middot; Mar 1 – Mar 30, 2026 &middot; Generated 2026-03-30 13:11:02</footer>
+<footer>Naqel Express &middot; Digital Engineering &amp; Platform Modernization &middot; Mar 1 – Mar 31, 2026 &middot; Generated 2026-03-31 13:57:43</footer>
 
 <script>
-const TREND_LABELS      = ["Mar 1","Mar 2","Mar 3","Mar 4","Mar 5","Mar 6","Mar 7","Mar 8","Mar 9","Mar 10","Mar 11","Mar 12","Mar 13","Mar 14","Mar 15","Mar 16","Mar 17","Mar 18","Mar 19","Mar 20","Mar 21","Mar 22","Mar 23","Mar 24","Mar 25","Mar 26","Mar 27","Mar 28","Mar 29","Mar 30"];
-const SMS_SERIES        = [{"name":"OFD Prepaid SMS","data":[47225,47744,53183,52648,57271,51112,49165,58986,57810,57286,56952,62460,52680,53012,60331,53369,43355,31317,22492,339,3,25145,24348,19534,15535,8258,7188,6513,11578,26620]},{"name":"OFD COD SMS","data":[20184,20248,20899,19683,20078,17265,19432,20793,22091,25392,25229,24500,20336,22208,21379,23066,24389,24545,23975,72,0,17946,25783,26992,26634,26015,19791,19339,18174,18038]},{"name":"Pickup SMS","data":[35749,40859,26721,41227,38719,31796,45955,40369,48322,36263,42913,36891,32387,41802,25468,21600,20005,16821,8147,1477,7047,12952,12774,15041,18884,18555,12828,20600,23650,7715]},{"name":"Data Registered SMS","data":[17051,19835,17886,16942,16017,12547,18267,16140,15334,25868,14694,14210,10284,14515,9996,8490,6655,5477,4128,1692,2785,3789,4544,6596,10956,10612,7997,16416,16522,8631]},{"name":"Out For Pickup SMS","data":[23890,23055,20634,18223,15467,12585,12927,11708,12079,11553,10425,10107,9117,10256,11469,12007,11664,11877,10579,0,0,12981,13478,13854,13229,10218,8664,9333,10021,9060]},{"name":"No Answer","data":[5829,5949,5487,5587,5722,5588,5614,5919,6531,6844,6566,6889,6349,6948,7200,6899,2283,7240,8168,324,0,5054,7787,8462,8048,8167,6250,6281,5710,356]},{"name":"QualityDepartmentMessages","data":[612,217,221,14440,2204,0,0,336,2821,60952,81108,65072,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"ASR Booking Received","data":[16611,14569,11929,9351,7909,7248,6909,6831,6447,6124,6089,6108,6416,7330,7845,7432,7394,7079,5621,2857,4326,5753,7658,8632,8448,8157,7465,7974,7781,2763]}];
-const WA_SERIES         = [{"name":"OFD Prepaid SMS","data":[28616,30732,32402,33524,33604,31237,36476,36894,37425,38545,39309,52376,38788,41960,45231,45368,37883,31867,31318,13,0,34848,30596,26201,21194,19127,17527,18016,21863,22749]},{"name":"OFD COD SMS","data":[19849,19628,19855,18606,19066,16452,19130,20508,21757,24546,24169,23643,19458,21875,22758,22456,23677,23522,23389,1,0,17667,25478,26540,26293,25276,19679,19337,17713,17917]},{"name":"Pickup SMS","data":[3922,4442,2611,4369,4853,5301,6769,6795,7829,4438,3800,3476,2968,2968,2119,2108,873,728,389,6,253,167,855,3405,2714,2976,2143,3266,3250,518]},{"name":"Data Registered SMS","data":[16942,19741,16974,16828,15567,12485,17911,16063,15248,25460,14636,13980,10111,14473,9931,8352,6542,5424,3975,1542,2694,3741,4491,6420,4140,0,0,0,0,0]},{"name":"Out For Pickup SMS","data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"No Answer","data":[5683,5823,5335,5460,5599,5486,5528,5836,6455,6769,6494,6802,6284,6872,7117,6838,2207,7181,8111,319,0,5001,7707,8373,7983,8068,6130,6159,5612,339]},{"name":"QualityDepartmentMessages","data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"ASR Booking Received","data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]}];
-const COMBINED_SERIES   = [{"name":"OFD Prepaid SMS","data":[75841,78476,85585,86172,90875,82349,85641,95880,95235,95831,96261,114836,91468,94972,105562,98737,81238,63184,53810,352,3,59993,54944,45735,36729,27385,24715,24529,33441,49369]},{"name":"OFD COD SMS","data":[40033,39876,40754,38289,39144,33717,38562,41301,43848,49938,49398,48143,39794,44083,44137,45522,48066,48067,47364,73,0,35613,51261,53532,52927,51291,39470,38676,35887,35955]},{"name":"Pickup SMS","data":[39671,45301,29332,45596,43572,37097,52724,47164,56151,40701,46713,40367,35355,44770,27587,23708,20878,17549,8536,1483,7300,13119,13629,18446,21598,21531,14971,23866,26900,8233]},{"name":"Data Registered SMS","data":[33993,39576,34860,33770,31584,25032,36178,32203,30582,51328,29330,28190,20395,28988,19927,16842,13197,10901,8103,3234,5479,7530,9035,13016,15096,10612,7997,16416,16522,8631]},{"name":"Out For Pickup SMS","data":[23890,23055,20634,18223,15467,12585,12927,11708,12079,11553,10425,10107,9117,10256,11469,12007,11664,11877,10579,0,0,12981,13478,13854,13229,10218,8664,9333,10021,9060]},{"name":"No Answer","data":[11512,11772,10822,11047,11321,11074,11142,11755,12986,13613,13060,13691,12633,13820,14317,13737,4490,14421,16279,643,0,10055,15494,16835,16031,16235,12380,12440,11322,695]},{"name":"QualityDepartmentMessages","data":[612,217,221,14440,2204,0,0,336,2821,60952,81108,65072,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"ASR Booking Received","data":[16611,14569,11929,9351,7909,7248,6909,6831,6447,6124,6089,6108,6416,7330,7845,7432,7394,7079,5621,2857,4326,5753,7658,8632,8448,8157,7465,7974,7781,2763]}];
-const DONUT_LABELS      = ["OFD Prepaid SMS","OFD COD SMS","Pickup SMS","Data Registered SMS","Out For Pickup SMS","No Answer","QualityDepartmentMessages","ASR Booking Received","Future Delivery","Refuse Delivery","Others"];
-const SMS_DONUT         = [1113459,614476,783537,354876,360452,174050,227983,227056,112908,95298,304068];
-const WA_DONUT          = [915689,600245,90311,283671,0,171570,0,0,112907,95298,92734];
-const COMBINED_DONUT    = [2029148,1214721,873848,638547,360452,345620,227983,227056,225815,190596,396802];
-const TOTAL_SMS         = 4368159;
-const TOTAL_WA          = 2362424;
-const TOTAL_COMBINED    = 6730583;
-const SMS_TYPES         = [{"name":"OFD Prepaid SMS","val":1113459},{"name":"Pickup SMS","val":783537},{"name":"OFD COD SMS","val":614476},{"name":"Out For Pickup SMS","val":360452},{"name":"Data Registered SMS","val":354876},{"name":"QualityDepartmentMessages","val":227983},{"name":"ASR Booking Received","val":227056},{"name":"No Answer","val":174050},{"name":"Future Delivery","val":112908},{"name":"Refuse Delivery","val":95298},{"name":"IND SMS","val":59468},{"name":"CBULogin","val":46913}];
-const WA_TYPES          = [{"name":"OFD Prepaid SMS","val":915689},{"name":"OFD COD SMS","val":600245},{"name":"Data Registered SMS","val":283671},{"name":"No Answer","val":171570},{"name":"Future Delivery","val":112907},{"name":"Refuse Delivery","val":95298},{"name":"Pickup SMS","val":90311},{"name":"Mobile Closed","val":42788},{"name":"Not Home","val":27475},{"name":"Address change","val":21771},{"name":"Customer Collection","val":700},{"name":"ASR Booking Canceled","val":0}];
-const COMBINED_TYPES    = [{"name":"OFD Prepaid SMS","val":2029148},{"name":"OFD COD SMS","val":1214721},{"name":"Pickup SMS","val":873848},{"name":"Data Registered SMS","val":638547},{"name":"Out For Pickup SMS","val":360452},{"name":"No Answer","val":345620},{"name":"QualityDepartmentMessages","val":227983},{"name":"ASR Booking Received","val":227056},{"name":"Future Delivery","val":225815},{"name":"Refuse Delivery","val":190596},{"name":"Mobile Closed","val":85575},{"name":"IND SMS","val":59468}];
-const MAX_SMS_TYPE      = 1113459;
-const MAX_WA_TYPE       = 915689;
-const MAX_COMBINED_TYPE = 2029148;
+const TREND_LABELS      = ["Mar 1","Mar 2","Mar 3","Mar 4","Mar 5","Mar 6","Mar 7","Mar 8","Mar 9","Mar 10","Mar 11","Mar 12","Mar 13","Mar 14","Mar 15","Mar 16","Mar 17","Mar 18","Mar 19","Mar 20","Mar 21","Mar 22","Mar 23","Mar 24","Mar 25","Mar 26","Mar 27","Mar 28","Mar 29","Mar 30","Mar 31"];
+const SMS_SERIES        = [{"name":"OFD Prepaid SMS","data":[47225,47744,53183,52648,57271,51112,49165,58986,57810,57286,56952,62460,52680,53012,60331,53369,43355,31317,22492,339,3,25145,24348,19534,15535,8258,7188,6513,11578,27371,2701]},{"name":"OFD COD SMS","data":[20184,20248,20899,19683,20078,17265,19432,20793,22091,25392,25229,24500,20336,22208,21379,23066,24389,24545,23975,72,0,17946,25783,26992,26634,26015,19791,19339,18174,18529,16424]},{"name":"Pickup SMS","data":[35749,40859,26721,41227,38719,31796,45955,40369,48322,36263,42913,36891,32387,41802,25468,21600,20005,16821,8147,1477,7047,12952,12774,15041,18884,18555,12828,20600,23650,24959,7299]},{"name":"Data Registered SMS","data":[17051,19835,17886,16942,16017,12547,18267,16140,15334,25868,14694,14210,10284,14515,9996,8490,6655,5477,4128,1692,2785,3789,4544,6596,10956,10612,7997,16416,16522,16341,9085]},{"name":"Out For Pickup SMS","data":[23890,23055,20634,18223,15467,12585,12927,11708,12079,11553,10425,10107,9117,10256,11469,12007,11664,11877,10579,0,0,12981,13478,13854,13229,10218,8664,9333,10021,9441,8271]},{"name":"No Answer","data":[5829,5949,5487,5587,5722,5588,5614,5919,6531,6844,6566,6889,6349,6948,7200,6899,2283,7240,8168,324,0,5054,7787,8462,8048,8167,6250,6281,5710,5833,418]},{"name":"ASR Booking Received","data":[16611,14569,11929,9351,7909,7248,6909,6831,6447,6124,6089,6108,6416,7330,7845,7432,7394,7079,5621,2857,4326,5753,7658,8632,8448,8157,7465,7974,7781,6654,2776]},{"name":"Future Delivery","data":[3967,3867,4186,3828,4178,3674,4072,4397,4507,4924,4763,5528,4632,4598,4891,4621,1807,3847,3651,391,0,3269,5248,5287,5007,4068,3116,3001,2944,3165,792]}];
+const WA_SERIES         = [{"name":"OFD Prepaid SMS","data":[28616,30732,32402,33524,33604,31237,36476,36894,37425,38545,39309,52376,38788,41960,45231,45368,37883,31867,31318,13,0,34848,30596,26201,21194,19127,17527,18016,21863,24614,21809]},{"name":"OFD COD SMS","data":[19849,19628,19855,18606,19066,16452,19130,20508,21757,24546,24169,23643,19458,21875,22758,22456,23677,23522,23389,1,0,17667,25478,26540,26293,25276,19679,19337,17713,18359,16926]},{"name":"Pickup SMS","data":[3922,4442,2611,4369,4853,5301,6769,6795,7829,4438,3800,3476,2968,2968,2119,2108,873,728,389,6,253,167,855,3405,2714,2976,2143,3266,3250,3140,687]},{"name":"Data Registered SMS","data":[16942,19741,16974,16828,15567,12485,17911,16063,15248,25460,14636,13980,10111,14473,9931,8352,6542,5424,3975,1542,2694,3741,4491,6420,4140,0,0,0,0,0,0]},{"name":"Out For Pickup SMS","data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"No Answer","data":[5683,5823,5335,5460,5599,5486,5528,5836,6455,6769,6494,6802,6284,6872,7117,6838,2207,7181,8111,319,0,5001,7707,8373,7983,8068,6130,6159,5612,5709,398]},{"name":"ASR Booking Received","data":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]},{"name":"Future Delivery","data":[3967,3867,4186,3828,4177,3675,4072,4396,4508,4924,4763,5528,4632,4598,4890,4621,1807,3847,3651,391,0,3269,5248,5287,5007,4068,3116,3001,2944,3165,792]}];
+const COMBINED_SERIES   = [{"name":"OFD Prepaid SMS","data":[75841,78476,85585,86172,90875,82349,85641,95880,95235,95831,96261,114836,91468,94972,105562,98737,81238,63184,53810,352,3,59993,54944,45735,36729,27385,24715,24529,33441,51985,24510]},{"name":"OFD COD SMS","data":[40033,39876,40754,38289,39144,33717,38562,41301,43848,49938,49398,48143,39794,44083,44137,45522,48066,48067,47364,73,0,35613,51261,53532,52927,51291,39470,38676,35887,36888,33350]},{"name":"Pickup SMS","data":[39671,45301,29332,45596,43572,37097,52724,47164,56151,40701,46713,40367,35355,44770,27587,23708,20878,17549,8536,1483,7300,13119,13629,18446,21598,21531,14971,23866,26900,28099,7986]},{"name":"Data Registered SMS","data":[33993,39576,34860,33770,31584,25032,36178,32203,30582,51328,29330,28190,20395,28988,19927,16842,13197,10901,8103,3234,5479,7530,9035,13016,15096,10612,7997,16416,16522,16341,9085]},{"name":"Out For Pickup SMS","data":[23890,23055,20634,18223,15467,12585,12927,11708,12079,11553,10425,10107,9117,10256,11469,12007,11664,11877,10579,0,0,12981,13478,13854,13229,10218,8664,9333,10021,9441,8271]},{"name":"No Answer","data":[11512,11772,10822,11047,11321,11074,11142,11755,12986,13613,13060,13691,12633,13820,14317,13737,4490,14421,16279,643,0,10055,15494,16835,16031,16235,12380,12440,11322,11542,816]},{"name":"ASR Booking Received","data":[16611,14569,11929,9351,7909,7248,6909,6831,6447,6124,6089,6108,6416,7330,7845,7432,7394,7079,5621,2857,4326,5753,7658,8632,8448,8157,7465,7974,7781,6654,2776]},{"name":"Future Delivery","data":[7934,7734,8372,7656,8355,7349,8144,8793,9015,9848,9526,11056,9264,9196,9781,9242,3614,7694,7302,782,0,6538,10496,10574,10014,8136,6232,6002,5888,6330,1584]}];
+const DONUT_LABELS      = ["OFD Prepaid SMS","OFD COD SMS","Pickup SMS","Data Registered SMS","Out For Pickup SMS","No Answer","ASR Booking Received","Future Delivery","QualityDepartmentMessages","Refuse Delivery","Others"];
+const SMS_DONUT         = [1116911,631391,808080,371671,369112,179946,233723,116226,227983,98207,310925];
+const WA_DONUT          = [939357,617613,93620,283671,0,177339,0,116225,0,98207,95827];
+const COMBINED_DONUT    = [2056268,1249004,901700,655342,369112,357285,233723,232451,227983,196414,406752];
+const TOTAL_SMS         = 4464175;
+const TOTAL_WA          = 2421856;
+const TOTAL_COMBINED    = 6886031;
+const SMS_TYPES         = [{"name":"OFD Prepaid SMS","val":1116911},{"name":"Pickup SMS","val":808080},{"name":"OFD COD SMS","val":631391},{"name":"Data Registered SMS","val":371671},{"name":"Out For Pickup SMS","val":369112},{"name":"ASR Booking Received","val":233723},{"name":"QualityDepartmentMessages","val":227983},{"name":"No Answer","val":179946},{"name":"Future Delivery","val":116226},{"name":"Refuse Delivery","val":98207},{"name":"IND SMS","val":59468},{"name":"CBULogin","val":48042}];
+const WA_TYPES          = [{"name":"OFD Prepaid SMS","val":939357},{"name":"OFD COD SMS","val":617613},{"name":"Data Registered SMS","val":283671},{"name":"No Answer","val":177339},{"name":"Future Delivery","val":116225},{"name":"Refuse Delivery","val":98207},{"name":"Pickup SMS","val":93620},{"name":"Mobile Closed","val":44586},{"name":"Not Home","val":28163},{"name":"Address change","val":22362},{"name":"Customer Collection","val":716},{"name":"ASR Booking Canceled","val":0}];
+const COMBINED_TYPES    = [{"name":"OFD Prepaid SMS","val":2056268},{"name":"OFD COD SMS","val":1249004},{"name":"Pickup SMS","val":901700},{"name":"Data Registered SMS","val":655342},{"name":"Out For Pickup SMS","val":369112},{"name":"No Answer","val":357285},{"name":"ASR Booking Received","val":233723},{"name":"Future Delivery","val":232451},{"name":"QualityDepartmentMessages","val":227983},{"name":"Refuse Delivery","val":196414},{"name":"Mobile Closed","val":89171},{"name":"IND SMS","val":59468}];
+const MAX_SMS_TYPE      = 1116911;
+const MAX_WA_TYPE       = 939357;
+const MAX_COMBINED_TYPE = 2056268;
 const COLORS            = ['#00d4ff','#ff6b35','#7c3aed','#10b981','#f59e0b','#ec4899','#3b82f6','#a3e635'];
 const DONUT_COLORS      = ['#00d4ff','#ff6b35','#7c3aed','#10b981','#f59e0b','#ec4899','#3b82f6','#a3e635','#f97316','#8b5cf6','#334155'];
 
 const SMS_KPI = {
   channelLabel: 'TOTAL SMS SENT',
-  channelValue: '4.37<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
-  channelSub:   'Over <b>30 days</b> &middot; 32 types',
+  channelValue: '4.46<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  channelSub:   'Over <b>31 days</b> &middot; 32 types',
   topLabel:     'TOP SMS TYPE',
-  topValue:     '1.11<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
-  topSub:       '<b>OFD Prepaid SMS</b> &#8212; 25.5% share',
+  topValue:     '1.12<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  topSub:       '<b>OFD Prepaid SMS</b> &#8212; 25.0% share',
   otherLabel:   'WHATSAPP TOTAL',
-  otherValue:   '2.36<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  otherValue:   '2.42<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
 };
 const WA_KPI = {
   channelLabel: 'TOTAL WHATSAPP SENT',
-  channelValue: '2.36<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
-  channelSub:   'Over <b>30 days</b> &middot; 32 types',
+  channelValue: '2.42<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  channelSub:   'Over <b>31 days</b> &middot; 32 types',
   topLabel:     'TOP WHATSAPP TYPE',
-  topValue:     '916<span style="font-size:13px;font-weight:400;color:#64748b">K</span>',
+  topValue:     '939<span style="font-size:13px;font-weight:400;color:#64748b">K</span>',
   topSub:       '<b>OFD Prepaid SMS</b> &#8212; 38.8% share',
   otherLabel:   'SMS TOTAL',
-  otherValue:   '4.37<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  otherValue:   '4.46<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
 };
 const COMBINED_KPI = {
   channelLabel: 'TOTAL SENT (SMS + WA)',
-  channelValue: '6.73<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
-  channelSub:   'Over <b>30 days</b> &middot; 32 types',
+  channelValue: '6.89<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  channelSub:   'Over <b>31 days</b> &middot; 32 types',
   topLabel:     'TOP TYPE (COMBINED)',
-  topValue:     '2.03<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
-  topSub:       '<b>OFD Prepaid SMS</b> &#8212; 30.1% share',
+  topValue:     '2.06<span style="font-size:13px;font-weight:400;color:#64748b">M</span>',
+  topSub:       '<b>OFD Prepaid SMS</b> &#8212; 29.9% share',
   otherLabel:   'DAILY AVG (COMBINED)',
-  otherValue:   '224<span style="font-size:13px;font-weight:400;color:#64748b">K</span>',
+  otherValue:   '222<span style="font-size:13px;font-weight:400;color:#64748b">K</span>',
 };
 
 let currentTotal = TOTAL_SMS;
@@ -379,7 +379,7 @@ function switchType(type) {
 }
 
 // Daily table
-const DAILY   = [{"date":"Mar 1","val":268213},{"date":"Mar 2","val":309711},{"date":"Mar 3","val":271814},{"date":"Mar 4","val":286040},{"date":"Mar 5","val":275895},{"date":"Mar 6","val":232084},{"date":"Mar 7","val":270161},{"date":"Mar 8","val":275959},{"date":"Mar 9","val":288905},{"date":"Mar 10","val":363419},{"date":"Mar 11","val":364360},{"date":"Mar 12","val":359375},{"date":"Mar 13","val":244887},{"date":"Mar 14","val":274821},{"date":"Mar 15","val":264028},{"date":"Mar 16","val":251605},{"date":"Mar 17","val":205073},{"date":"Mar 18","val":202619},{"date":"Mar 19","val":179403},{"date":"Mar 20","val":11084},{"date":"Mar 21","val":17728},{"date":"Mar 22","val":166704},{"date":"Mar 23","val":196279},{"date":"Mar 24","val":202708},{"date":"Mar 25","val":196049},{"date":"Mar 26","val":174912},{"date":"Mar 27","val":137759},{"date":"Mar 28","val":155438},{"date":"Mar 29","val":163155},{"date":"Mar 30","val":120405}];
+const DAILY   = [{"date":"Mar 1","val":268213},{"date":"Mar 2","val":309711},{"date":"Mar 3","val":271814},{"date":"Mar 4","val":286040},{"date":"Mar 5","val":275895},{"date":"Mar 6","val":232084},{"date":"Mar 7","val":270161},{"date":"Mar 8","val":275959},{"date":"Mar 9","val":288905},{"date":"Mar 10","val":363419},{"date":"Mar 11","val":364360},{"date":"Mar 12","val":359375},{"date":"Mar 13","val":244887},{"date":"Mar 14","val":274821},{"date":"Mar 15","val":264028},{"date":"Mar 16","val":251605},{"date":"Mar 17","val":205073},{"date":"Mar 18","val":202619},{"date":"Mar 19","val":179403},{"date":"Mar 20","val":11084},{"date":"Mar 21","val":17728},{"date":"Mar 22","val":166704},{"date":"Mar 23","val":196279},{"date":"Mar 24","val":202708},{"date":"Mar 25","val":196049},{"date":"Mar 26","val":174912},{"date":"Mar 27","val":137759},{"date":"Mar 28","val":155438},{"date":"Mar 29","val":163155},{"date":"Mar 30","val":182900},{"date":"Mar 31","val":92948}];
 const MAX_DAY = 364360;
 const dayBody = document.getElementById('dayTableBody');
 DAILY.forEach((d, i) => {
